@@ -1,0 +1,7 @@
+<h1>Index page</h1>
+
+<% @listings.each do |listing| %>
+  <p>Listing ID: <%= listing.id %></p>
+  <p>Listing Start Price: $<%= listing.start_price %></p>
+  <p>Listing Start Time: <%= listing.start_time %></p>
+<% end %>
