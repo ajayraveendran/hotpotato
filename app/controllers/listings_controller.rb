@@ -4,11 +4,11 @@ class ListingsController < ApplicationController
   end
 
   def edit
-    @listings = Listing.find(params[:id])
+    @listing = Listing.find(params[:id])
   end
 
   def show
-    @listings = Listing.find(params[:id])
+    @listing = Listing.find(params[:id])
   end
 
   def update
