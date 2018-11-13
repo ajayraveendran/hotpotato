@@ -10,6 +10,32 @@
   </head>
 
   <body>
+
+    <div class="header">
+
+      <img src="http://placekitten.com/50/50">
+      <h1>HotPotato</h1>
+
+      <a href="/users/login">Login</a>
+      <a href="/users/signup">Signup</a>
+
+      <label for="">Choose an option:</label>
+      <select name="choose">
+        <option name="listings">Listings</option>
+        <option name="finishing">Finishing soon</option>
+        <option name="watchlist">Watchlist</option>
+        <option name="new">List an item</option>
+      </select>
+
+      <form action="/listings/search">
+      <textarea name="listing_search"></textarea>
+      <button>Submit</button>
+      </form>
+
+    </div>
+
+
+
     <%= yield %>
   </body>
 </html>
