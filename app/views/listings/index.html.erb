@@ -1,19 +1,28 @@
 <h1>Index page</h1>
 
 <% @listings.each do |listing| %>
-  <p>Listing ID: <%= listing.id %></p>
-  <p>Listing Start Price: $<%= listing.start_price %></p>
-  <p>Listing Start Time: <%= listing.start_time %></p>
-  <p>Current Price: <span class="current-price"></span></p>
+  <div id="<%= listing.id %>">
+    <p>Listing ID: <%= listing.id %></p>
+    <p>Listing Start Price: $<%= listing.start_price %></p>
+    <p>Listing Start Time: <%= listing.start_time %></p>
+    <p>Current Price: <span id="current-price"></span></p>
+  </div>
   <hr>
 <% end %>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script>
+  var currentPrice = document.querySelectorAll('#current-price')
+  
   var source = new EventSource('/price_response');
 
   source.addEventListener("ping", function(event) {
-    debuggere
     var data = JSON.parse(event.data)
-    console.log(data.name)
+
+  currentPrice.forEach(element => {
+    var listingId = Number(element.closest('div').id)
+    element.textContent = data.listings[listingId]
+  });
+
   })
 </script>
