@@ -23,8 +23,10 @@ class ListingsController < ApplicationController
 
   def update
     listing = Listing.find(params[:id])
-    listing.name = params[:name]
+    listing.title = params[:title]
     listing.image_url = params[:image_url]
+    listing.end_price = params[:current_price]
+    
     if listing.save
       redirect_to '/listings'
     else
@@ -66,6 +68,7 @@ class ListingsController < ApplicationController
     result = {}
     listings = Listing.all
     listings.each do |listing|
+      if (listing.end_price == nil)
       total_seconds = time_grab(value_time, listing.start_price)
       interval = 3
       time_diff = (Time.now - listing.start_time)
@@ -73,6 +76,12 @@ class ListingsController < ApplicationController
       dollar_decrements = listing.start_price / no_of_decrements
       new_price = (listing.start_price - ((time_diff * dollar_decrements) / interval)).round(1)
       result[listing.id] = new_price
+      
+        # decrement = (Time.now.to_i - listing.start_time.to_i)
+        # new_price = listing.start_price * decrement
+        # result[listing.id] = new_price
+      end
+
     end
     
     sse.write({ listings: result})
