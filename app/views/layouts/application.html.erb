@@ -6,18 +6,23 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
   </head>
 
   <body>
 
     <div class="header">
 
+      <span class="header-toggle">
+        <i class="fas fa-bars"></i>
+      </span>
+
       <a href="/" class="logo"><img src="http://placekitten.com/50/50"></a>
 
       <h1>HotPotato</h1>
 
-      <ul class="nav-bar" id="js-menu">
+      <ul class="nav-bar">
+        
         <li>
           <a href="/users/login" class="nav-links">Login</a>
         </li>
@@ -33,17 +38,25 @@
         <li>
           <a href="#" class="nav-links">Watchlist</a>
         </li>
-      </ul>
+        <li>
+          <a href="/listings/new" class="nav-links">Add new item</a>
+        </li>
+        <li>
+          <form action="/listings/search">
+          <textarea name="listing_search"></textarea>
+          <button>Search</button>
+          </form>
+        </li>
 
-      <form action="/listings/search">
-      <textarea name="listing_search"></textarea>
-      <button>Search</button>
-      </form>
+      </ul>
 
     </div>
 
 
 
     <%= yield %>
+
+  <%= javascript_include_tag 'application' %>
   </body>
+
 </html>
