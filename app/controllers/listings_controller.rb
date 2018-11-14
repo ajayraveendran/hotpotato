@@ -32,6 +32,16 @@ class ListingsController < ApplicationController
     end
   end
 
+  def destroy
+    listing = Listing.find(params[:id])
+    if listing.destroy
+      redirect_to '/listings'
+    else
+      render :index
+    end
+  end
+  
+
   def price_response
     response.headers['Content-Type'] = 'text/event-stream'
     sse = SSE.new(response.stream, retry: 1000, event: "ping")
