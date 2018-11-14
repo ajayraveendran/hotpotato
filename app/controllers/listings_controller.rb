@@ -21,4 +21,15 @@ class ListingsController < ApplicationController
       render :edit
     end
   end
+
+  def destroy
+    listing = Listing.find(params[:id])
+    if listing.destroy
+      redirect_to '/listings'
+    else
+      render :index
+    end
+  end
+  
+
 end

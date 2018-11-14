@@ -13,23 +13,31 @@
 
     <div class="header">
 
-      <img src="http://placekitten.com/50/50">
+      <a href="/" class="logo"><img src="http://placekitten.com/50/50"></a>
+
       <h1>HotPotato</h1>
 
-      <a href="/users/login">Login</a>
-      <a href="/users/signup">Signup</a>
-
-      <label for="">Choose an option:</label>
-      <select name="choose">
-        <option name="listings">Listings</option>
-        <option name="finishing">Finishing soon</option>
-        <option name="watchlist">Watchlist</option>
-        <option name="new">List an item</option>
-      </select>
+      <ul class="nav-bar" id="js-menu">
+        <li>
+          <a href="/users/login" class="nav-links">Login</a>
+        </li>
+        <li>
+          <a href="/users/signup" class="nav-links">Signup</a>
+        </li>
+        <li>
+          <a href="/listings" class="nav-links">Show all listings</a>
+        </li>
+        <li>
+          <a href="#" class="nav-links">Finishing soon</a>
+        </li>
+        <li>
+          <a href="#" class="nav-links">Watchlist</a>
+        </li>
+      </ul>
 
       <form action="/listings/search">
       <textarea name="listing_search"></textarea>
-      <button>Submit</button>
+      <button>Search</button>
       </form>
 
     </div>
