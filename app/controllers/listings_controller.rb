@@ -11,6 +11,14 @@ class ListingsController < ApplicationController
     @listing = Listing.find(params[:id])
   end
 
+  def create
+    listing = Listing.new
+    listing.start_price = params[:start_price]
+    listing.start_time = Time.new #params[start_time]
+    listing.save
+    redirect_to '/'
+  end
+
   def update
     listing = Listing.find(params[:id])
     listing.name = params[:name]
