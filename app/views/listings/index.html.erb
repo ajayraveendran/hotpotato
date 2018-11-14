@@ -2,15 +2,19 @@
 
 <% @listings.each do |listing| %>
   <div id="<%= listing.id %>">
-    <p>Listing ID: <%= listing.id %></p>
+    <p><a href="/listings/<%= listing.id %>"> Listing ID: <%= listing.id %> </a></p>
     <p>Listing Start Price: $<%= listing.start_price %></p>
     <p>Listing Start Time: <%= listing.start_time %></p>
-    <p>Current Price: <span id="current-price"></span></p>
+    <% if (listing.end_price == nil) %>
+      <p>Current Price: $<span id="current-price"></span></p>
+    <% else %>
+      <p>End Price: $<%= listing.end_price %></p>
+    <% end %>
+
   </div>
   <hr>
 <% end %>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script>
   var currentPrice = document.querySelectorAll('#current-price')
   
