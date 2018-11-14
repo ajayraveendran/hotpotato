@@ -1,11 +1,10 @@
+<%= form_tag '/listings', method: 'post' do%>
 
-
-<form action="/listings" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
   <label for="start_price">Item Start Price</label>
   <input name="start_price" type="text">
   <label for="start_time">Item Start Time</label>
   <input type="datetime-local" name="start_time" id="">
   <button type="submit">Save</button>
-</form>
 
+<% end %>
