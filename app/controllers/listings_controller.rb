@@ -23,13 +23,17 @@ class ListingsController < ApplicationController
 
   def update
     listing = Listing.find(params[:id])
-    listing.name = params[:name]
+    listing.title = params[:title]
     listing.image_url = params[:image_url]
-    if listing.save
-      redirect_to '/listings'
-    else
-      render :edit
-    end
+    listing.end_price = params[:current_price]
+    
+    listing.save
+    
+    # if listing.save
+    #   redirect_to '/listings'
+    # else
+    #   render :edit
+    # end
   end
 
   def destroy
@@ -49,8 +53,10 @@ class ListingsController < ApplicationController
     result = {}
     listings = Listing.all
     listings.each do |listing|
-      time_diff = (Time.now.to_i - listing.start_time.to_i)
-      new_price = listing.start_price * time_diff
+      # time_diff = (Time.now.to_i - listing.start_time.to_i)
+      # new_price = listing.start_price * time_diff
+      decrement = (Time.now.to_i - listing.start_time.to_i)
+      new_price = listing.start_price * decrement
       result[listing.id] = new_price
     end
     
