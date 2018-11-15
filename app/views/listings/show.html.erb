@@ -17,7 +17,14 @@
     <% end %>
 
   </div>
-  <button>BUY</button>
+
+  <% if (@listing.status == live) %>
+    <input type="hidden" name="buy-button">
+    <button>BUY</button>
+    <% else %>
+    <p>Auction ended</p>
+  <% end %>
+  
 <% end %>
 
 <script>
