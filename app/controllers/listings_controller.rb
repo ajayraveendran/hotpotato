@@ -16,7 +16,7 @@ class ListingsController < ApplicationController
   def create
     listing = Listing.new
     listing.start_price = params[:start_price]
-    listing.start_time = Time.new #params[start_time]
+    listing.start_time = params[:start_time]
     listing.save
     redirect_to '/'
   end
@@ -53,7 +53,8 @@ class ListingsController < ApplicationController
       500 => 600,
       1000 => 900,
       2500 => 1200,
-      5000 => 1500
+      5000 => 1500,
+      10000 => 1800
     }
     def time_grab obj, amt
       obj.each do |key, value|
@@ -71,24 +72,16 @@ class ListingsController < ApplicationController
       if (listing.end_price == nil)
       total_seconds = time_grab(value_time, listing.start_price)
       interval = 3
-      time_diff = (Time.now - listing.start_time)
+      time_diff = (Time.now.utc - listing.start_time)
       no_of_decrements = total_seconds / interval
       dollar_decrements = listing.start_price / no_of_decrements
       new_price = (listing.start_price - ((time_diff * dollar_decrements) / interval)).round(1)
       result[listing.id] = new_price
-      
-        # decrement = (Time.now.to_i - listing.start_time.to_i)
-        # new_price = listing.start_price * decrement
-        # result[listing.id] = new_price
       end
-
     end
-    
     sse.write({ listings: result})
   ensure
     sse.close
   end
 
-  def update_price
-  end
 end
