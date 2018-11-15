@@ -1,0 +1,9 @@
+<%= form_tag '/users', method: 'post' do%>
+  <label for="username">User Name</label>
+  <input name="username" type="text">
+  <label for="email">Email Address</label>
+  <input name="email" type="text">
+  <label for="password">Password</label>
+  <input type="password" name="password" id="">
+  <button type="submit">Create Account</button>
+<% end %>
