@@ -87,4 +87,5 @@ class ListingsController < ApplicationController
 
   def update_price
   end
+
 end

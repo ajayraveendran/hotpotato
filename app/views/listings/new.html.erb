@@ -1,6 +1,7 @@
+<h2>Add new item<h2>
+
 <%= form_tag '/listings', method: 'post' do %>
 
-  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
   <label for="start_price">Item Start Price</label>
   <input name="start_price" type="text">
   <label for="start_time">Item Start Time</label>
