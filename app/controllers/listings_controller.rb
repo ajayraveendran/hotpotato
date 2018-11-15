@@ -16,7 +16,7 @@ class ListingsController < ApplicationController
   def create
     listing = Listing.new
     listing.start_price = params[:start_price]
-    listing.start_time = Time.new #params[start_time]
+    listing.start_time = params[:start_time]
     listing.save
     redirect_to '/'
   end
@@ -76,10 +76,6 @@ class ListingsController < ApplicationController
       dollar_decrements = listing.start_price / no_of_decrements
       new_price = (listing.start_price - ((time_diff * dollar_decrements) / interval)).round(1)
       result[listing.id] = new_price
-      
-        # decrement = (Time.now.to_i - listing.start_time.to_i)
-        # new_price = listing.start_price * decrement
-        # result[listing.id] = new_price
       end
 
     end
