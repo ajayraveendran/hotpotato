@@ -10,14 +10,14 @@
     <p>Listing Start Price: $<%= @listing.start_price %></p>
     <p>Listing Start Time: <%= @listing.start_time %></p>
 
-    <% if (@listing.end_price == nil) %>
+    <% if (@listing.purchase_price == nil) %>
       <input type="hidden" id="current-price" name="current_price"><p>Current Price: $<span id="current-price"></span></p>
     <% else %>
-      <p>End Price: $<%= @listing.end_price %></p>
+      <p>End Price: $<%= @listing.purchase_price %></p>
     <% end %>
   </div>
 
-  <% if (@listing.status == live) %>
+  <% if (@listing.status == 'live') %>
     <input type="hidden" name="buy-button">
     <button>BUY</button>
   <% else %>
