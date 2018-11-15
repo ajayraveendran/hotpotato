@@ -23,8 +23,10 @@ class ListingsController < ApplicationController
 
   def update
     listing = Listing.find(params[:id])
-    listing.name = params[:name]
+    listing.title = params[:title]
     listing.image_url = params[:image_url]
+    listing.end_price = params[:current_price]
+    
     if listing.save
       redirect_to '/listings'
     else
@@ -44,14 +46,42 @@ class ListingsController < ApplicationController
 
   def price_response
     response.headers['Content-Type'] = 'text/event-stream'
-    sse = SSE.new(response.stream, retry: 1000, event: "ping")
+    sse = SSE.new(response.stream, retry: 3000, event: "ping")
+    value_time = {
+      50 => 120,
+      100 => 300,
+      500 => 600,
+      1000 => 900,
+      2500 => 1200,
+      5000 => 1500
+    }
+    def time_grab obj, amt
+      obj.each do |key, value|
+        if amt <= key
+          return value
+          break
+        end 
+      end 
+    end
 
+    
     result = {}
     listings = Listing.all
     listings.each do |listing|
-      time_diff = (Time.now.to_i - listing.start_time.to_i)
-      new_price = listing.start_price * time_diff
+      if (listing.end_price == nil)
+      total_seconds = time_grab(value_time, listing.start_price)
+      interval = 3
+      time_diff = (Time.now - listing.start_time)
+      no_of_decrements = total_seconds / interval
+      dollar_decrements = listing.start_price / no_of_decrements
+      new_price = (listing.start_price - ((time_diff * dollar_decrements) / interval)).round(1)
       result[listing.id] = new_price
+      
+        # decrement = (Time.now.to_i - listing.start_time.to_i)
+        # new_price = listing.start_price * decrement
+        # result[listing.id] = new_price
+      end
+
     end
     
     sse.write({ listings: result})

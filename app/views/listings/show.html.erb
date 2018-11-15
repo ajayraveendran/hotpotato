@@ -1,7 +1,39 @@
-<h2><%= @listing.name %></h2>
+<h2>Listing <%= @listing.id %></h2>
+<p>Listing Title: <%= @listing.title %></p>
 
 <img src="<%= @listing.image_url %>" alt="">
 
-<p>Listing ID: <%= @listing.id %></p>
-<p>Listing Start Price: $<%= @listing.start_price %></p>
-<p>Listing Start Time: <%= @listing.start_time %></p>
+
+<%= form_tag listing_path(@listing), method: 'put' do %>
+  <div id="<%= @listing.id %>">
+    <p>Listing ID: <%= @listing.id %></p>
+    <p>Listing Start Price: $<%= @listing.start_price %></p>
+    <p>Listing Start Time: <%= @listing.start_time %></p>
+
+    <% if (@listing.end_price == nil) %>
+      <input type="hidden" id="current-price" name="current_price"><p>Current Price: $<span id="current-price"></span></p>
+    <% else %>
+      <p>End Price: $<%= @listing.end_price %></p>
+    <% end %>
+
+  </div>
+  <button>BUY</button>
+<% end %>
+
+<script>
+  var currentPrices = document.querySelectorAll('#current-price')
+  
+  var source = new EventSource('/price_response');
+
+  source.addEventListener("ping", function(event) {
+    var data = JSON.parse(event.data)
+
+  currentPrices.forEach(element => {
+    var listingId = Number(element.closest('div').id)
+    var latestPrice = data.listings[listingId]
+    element.textContent = latestPrice
+    element.setAttribute('value', latestPrice)
+  });
+
+  })
+</script>

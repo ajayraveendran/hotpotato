@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2018_11_14_090348) do
     t.decimal "end_price"
     t.string "image_url"
     t.string "title"
+<<<<<<< HEAD
   end
 
   create_table "users", force: :cascade do |t|
@@ -31,6 +32,8 @@ ActiveRecord::Schema.define(version: 2018_11_14_090348) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
+=======
+>>>>>>> master
   end
 
 end
