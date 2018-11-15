@@ -15,13 +15,12 @@
     <% else %>
       <p>End Price: $<%= @listing.end_price %></p>
     <% end %>
-
   </div>
 
   <% if (@listing.status == live) %>
     <input type="hidden" name="buy-button">
     <button>BUY</button>
-    <% else %>
+  <% else %>
     <p>Auction ended</p>
   <% end %>
   
