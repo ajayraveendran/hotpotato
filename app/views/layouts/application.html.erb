@@ -53,6 +53,10 @@
 
     </nav>
 
+Session User ID:<%= session[:user_id] %>
+Session Username:<%= session[:username] %>
+
+<%= button_to 'Logout', login_path, method: 'delete' %>
 
 
     <%= yield %>
