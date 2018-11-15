@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_15_010824) do
+ActiveRecord::Schema.define(version: 2018_11_15_070021) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,9 +20,14 @@ ActiveRecord::Schema.define(version: 2018_11_15_010824) do
     t.datetime "start_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "end_price"
+    t.decimal "purchase_price"
     t.string "image_url"
     t.string "title"
+    t.datetime "purchase_time"
+    t.string "category"
+    t.string "status"
+    t.integer "buyer_id"
+    t.integer "seller_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -34,4 +39,6 @@ ActiveRecord::Schema.define(version: 2018_11_15_010824) do
     t.boolean "is_active"
   end
 
+  add_foreign_key "listings", "users", column: "buyer_id"
+  add_foreign_key "listings", "users", column: "seller_id"
 end
