@@ -25,7 +25,7 @@ class ListingsController < ApplicationController
     listing = Listing.find(params[:id])
     listing.title = params[:title]
     listing.image_url = params[:image_url]
-    listing.end_price = params[:current_price]
+    listing.purchase_price = params[:current_price]
     
     if listing.save
       redirect_to '/listings'
@@ -69,7 +69,7 @@ class ListingsController < ApplicationController
     result = {}
     listings = Listing.all
     listings.each do |listing|
-      if (listing.end_price == nil)
+      if (listing.purchase_price == nil)
       total_seconds = time_grab(value_time, listing.start_price)
       interval = 3
       time_diff = (Time.now.utc - listing.start_time)
