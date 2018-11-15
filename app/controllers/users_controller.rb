@@ -7,6 +7,5 @@ class UsersController < ApplicationController
     user.password= params[:password]
     user.save
     redirect_to '/'
-    # binding.pry
   end
 end
