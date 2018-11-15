@@ -5,10 +5,10 @@
     <p><a href="/listings/<%= listing.id %>"> Listing ID: <%= listing.id %> </a></p>
     <p>Listing Start Price: $<%= listing.start_price %></p>
     <p>Listing Start Time: <%= listing.start_time %></p>
-    <% if (listing.end_price == nil) %>
+    <% if (listing.purchase_price == nil) %>
       <p>Current Price: $<span id="current-price"></span></p>
     <% else %>
-      <p>End Price: $<%= listing.end_price %></p>
+      <p>End Price: $<%= listing.purchase_price %></p>
     <% end %>
 
   </div>
