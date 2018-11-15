@@ -84,4 +84,7 @@ class ListingsController < ApplicationController
     sse.close
   end
 
+  def update_price
+  end
+
 end
