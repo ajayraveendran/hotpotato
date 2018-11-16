@@ -8,7 +8,7 @@
   <div id="<%= @listing.id %>">
     <p>Listing ID: <%= @listing.id %></p>
     <p>Listing Start Price: $<%= @listing.start_price %></p>
-    <p>Listing Start Time: <%= @listing.start_time %></p>
+    <p>Listing Start Time: <%= @listing.start_time.in_time_zone("Melbourne").strftime('%A %e %B %Y %r') %></p>
 
     <% if (@listing.purchase_price == nil) %>
       <input type="hidden" id="current-price" name="current_price"><p>Current Price: $<span id="current-price"></span></p>
