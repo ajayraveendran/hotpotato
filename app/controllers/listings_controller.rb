@@ -16,7 +16,7 @@ class ListingsController < ApplicationController
   def create
     listing = Listing.new
     listing.start_price = params[:start_price]
-    listing.start_time = params[:start_time]
+    listing.start_time = params[:start_time].in_time_zone("Melbourne")
     listing.save
     redirect_to '/'
   end
