@@ -5,26 +5,29 @@
 }
 
 body {
-  background-color: whitesmoke;
+  background-color: rgb(252, 251, 224);
 }
 
 .logo {
   display: inline-block;
   margin-top: 10px;
   margin-left: 10px;
+  width: 50px;
+  height: 50px;
 }
 
 h1 {
   text-align: center;
   font-size: 2em;
-  margin-top: -45px;
+  margin-top: -50px;
+  font-family: 'Bevan', cursive;
 }
 
 .header {
   font-size: 1.2em;
   border: 1px solid black;
-  padding-bottom: 10px;
-  background-color: rgba(20, 183, 204, 0.5);
+  padding-bottom: 5px;
+  background-color: #ffed00;
 }
 
 .header-toggle {
