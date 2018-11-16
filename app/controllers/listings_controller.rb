@@ -14,24 +14,39 @@ class ListingsController < ApplicationController
   end
 
   def create
-    listing = Listing.new
-    listing.start_price = params[:start_price]
-    listing.start_time = params[:start_time].in_time_zone("Melbourne")
-    listing.save
-    redirect_to '/'
+    if logged_in
+      listing = Listing.new
+      listing.start_price = params[:start_price]
+      listing.start_time = params[:start_time].in_time_zone("Melbourne")
+      listing.seller_id = current_user.id
+
+      if listing.save
+        redirect_to '/'
+      else
+        render :new
+      end
+    else
+      redirect_to '/login'
+    end
   end
 
   def update
-    listing = Listing.find(params[:id])
-    listing.title = params[:title]
-    listing.image_url = params[:image_url]
-    listing.purchase_price = params[:current_price]
-    
-    if listing.save
-      redirect_to '/listings'
+    if logged_in
+      listing = Listing.find(params[:id])
+      listing.title = params[:title]
+      listing.image_url = params[:image_url]
+      listing.purchase_price = params[:current_price]
+      listing.buyer_id = current_user.id
+      
+      if listing.save
+        redirect_to '/listings'
+      else
+        render :edit
+      end
     else
-      render :edit
+      redirect_to '/login'
     end
+    
   end
 
   def destroy
