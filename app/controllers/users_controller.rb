@@ -5,6 +5,7 @@ class UsersController < ApplicationController
     user.username = params[:username]
     user.email = params[:email]
     user.password= params[:password]
+    user.is_active = true
 
     if user.save
       session[:username] = user.username
