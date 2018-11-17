@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   delete 'login', to: 'sessions#destroy'
 
   get '/price_response', to: 'listings#price_response'
+
+  post '/watchlist', to: 'watchlists#create'
 end

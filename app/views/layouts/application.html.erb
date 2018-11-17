@@ -57,7 +57,11 @@
 <% if logged_in %>
   Session User ID:<%= session[:user_id] %>
   Session Username:<%= session[:username] %>
-  <input type="hidden" name="_method">
+  <p>Number of watchlist items:
+      <%= watchlist_items_count %>
+  </p>
+  <p>Purchased items: </p>
+  
   <%= button_to 'Logout', login_path, method: 'delete' %>
 <% else %>
   <%= button_to 'Login', login_path, method: 'post' %>
@@ -68,5 +72,7 @@
 
   <%= javascript_include_tag 'application' %>
   </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 
 </html>
