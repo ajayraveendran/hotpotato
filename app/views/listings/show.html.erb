@@ -10,36 +10,37 @@
     <p>Listing Start Price: $<%= @listing.start_price %></p>
     <p>Listing Start Time: <%= @listing.start_time.in_time_zone("Melbourne").strftime('%A %e %B %Y %r') %></p>
 
-    <% if (@listing.purchase_price == nil) %>
-      <input type="hidden" id="current-price" name="current_price"><p>Current Price: $<span id="current-price"></span></p>
+    <% if (@listing.purchase_price == nil && Time.now.utc.to_i < @listing.start_time.to_i && Time.now.utc.to_i < @listing.end_time.to_i)%>
+      <p><span id="current-price"></span></p>
+    <% elsif (@listing.purchase_price == nil && Time.now.utc.to_i < @listing.end_time.to_i)%>
+      <p><span id="current-price"></span></p>
+    <% elsif (@listing.purchase_price == nil && Time.now.utc.to_i > @listing.end_time.to_i)%>
+      <p><span id="current-price"></span></p>
     <% else %>
       <p>End Price: $<%= @listing.purchase_price %></p>
     <% end %>
   </div>
 
-  <% if (@listing.status == 'live') %>
+  <% if (@listing.purchase_price == nil && Time.now.utc.to_i < @listing.end_time.to_i && Time.now.utc.to_i > @listing.start_time.to_i)%>
     <input type="hidden" name="buy-button">
     <button>BUY</button>
-  <% else %>
-    <p>Auction ended</p>
   <% end %>
   
 <% end %>
 
 <script>
-  var currentPrices = document.querySelectorAll('#current-price')
-  
-  var source = new EventSource('/price_response');
+  const listingIds = document.querySelectorAll('#current-price')
+
+  const source = new EventSource('/price_response');
 
   source.addEventListener("ping", function(event) {
-    var data = JSON.parse(event.data)
+    let data = JSON.parse(event.data)
 
-  currentPrices.forEach(element => {
-    var listingId = Number(element.closest('div').id)
-    var latestPrice = data.listings[listingId]
-    element.textContent = latestPrice
-    element.setAttribute('value', latestPrice)
-  });
+    listingIds.forEach(element => {
+    let listingId = Number(element.closest('div').id)
+    element.textContent = data.result[listingId]
+    // debugger
+    });
 
   })
 </script>
