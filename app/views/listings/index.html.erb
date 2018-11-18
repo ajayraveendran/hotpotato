@@ -1,4 +1,10 @@
-<h2>Index page</h2>
+<form>
+  <select id="categories">
+    <option>Select a category:</option>
+  </select>
+</form>
+
+<h2>Listings</h2>
 
 <% @listings.each do |listing| %>
   <div id="<%= listing.id %>">
