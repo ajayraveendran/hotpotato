@@ -17,6 +17,7 @@ class ListingsController < ApplicationController
     @listing = Listing.new
     listing = Listing.new
     listing.start_price = params[:start_price]
+    listing.image_url = params[:image_url]
     listing.start_time = params[:start_time].in_time_zone("Melbourne")
     total_seconds = time_grab(listing.start_price)
     listing.end_time = listing.start_time + total_seconds
