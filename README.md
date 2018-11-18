@@ -22,3 +22,10 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+-[] Explanations of the technologies used
+-[] A few paragraphs about the general approach you took
+-[] Link to your user stories – who are your users, what do they want, and why?
+-[] Link to your wireframes – sketches of major views / interfaces in your application
+-[] Link to your diagrams - database schema
+-[] Descriptions of any unsolved problems or major hurdles your team had to overcome
