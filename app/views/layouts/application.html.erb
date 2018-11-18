@@ -4,7 +4,7 @@
     <title>HotPotato</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
     <link href="https://fonts.googleapis.com/css?family=Bevan" rel="stylesheet">
@@ -29,16 +29,22 @@
 
         <% if logged_in %>
           <li>
+          Username: <%= session[:username] %>
+          </li>
+          <li>
             <a href="/listings" class="nav-links">Show all listings</a>
           </li>
           <li>
             <a href="#" class="nav-links">Finishing soon</a>
           </li>
           <li>
-            <a href="#" class="nav-links">Watchlist</a>
+            <a href="#" class="nav-links" id="watchlist-count">Watchlist (<%= watchlist_count %>)</a>
           </li>
           <li>
             <a href="/listings/new" class="nav-links">New listing</a>
+          </li>
+          <li>
+          <%= link_to 'Logout', login_path, method: 'delete' %>
           </li>
         <% else %>
           <li>
@@ -58,23 +64,18 @@
       </ul>
 
 <% if logged_in %>
-  Username: <%= session[:username] %>
-  <p>Number of watchlist items:
-      <span id="watchlist-count"><%= watchlist_count %></span>
-  </p>
-  <p>Purchased items: </p>
   
   <%= button_to 'Logout', login_path, method: 'delete' %>
 <% else %>
   <%= button_to 'Login', login_path, method: 'post' %>
 <% end %>
+<br>
 
-
-    <%= yield %>
-
-  <%= javascript_include_tag 'application' %>
-  </body>
+  <%= yield %>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+  <%= javascript_include_tag 'application' %>
+  
+  </body>
 
 </html>
