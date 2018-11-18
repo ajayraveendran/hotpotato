@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_16_020602) do
+ActiveRecord::Schema.define(version: 2018_11_16_024422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2018_11_16_020602) do
     t.string "status"
     t.integer "buyer_id"
     t.integer "seller_id"
+    t.datetime "end_time"
   end
 
   create_table "listings_watchlists", force: :cascade do |t|
