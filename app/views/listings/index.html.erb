@@ -1,7 +1,7 @@
 <h2>Index page</h2>
 
 <% @listings.each do |listing| %>
-  <div id="<%= listing.id %>">
+  <div id="<%= listing.id %>" class="listing">
     <p><a href="/listings/<%= listing.id %>"> Listing ID: <%= listing.id %> </a></p>
     <p>Listing Start Price: $<%= listing.start_price %></p>
     <p>Listing Start Time: <%= listing.start_time.in_time_zone("Melbourne").strftime('%A %e %B %Y %r') %></p>
@@ -15,11 +15,8 @@
       <p>End Price: $<%= listing.purchase_price %></p>
     <% end %>
 
-    
 
-    <%= link_to 'Watch', watchlist_path(listing_id: "#{listing.id}"), method: 'create' %>
-
-    <%= button_to 'Watch', watchlist_path %>
+    <%= link_to 'Watch', watchlist_path(listing_id: "#{listing.id}"), method: 'create', class: 'add-to-watchlist' %>
 
   </div>
   <hr>
@@ -36,8 +33,21 @@
     listingIds.forEach(element => {
     let listingId = Number(element.closest('div').id)
     element.textContent = data.result[listingId]
-    debugger
   });
 
+  })
+
+  // update Watchlist counter via DOM manipulation
+  var watchlistCount = document.querySelector('#watchlist-count')
+  
+  var displayWatchlistCount = function(response) {
+    watchlistCount.innerHTML = response.result
+  }
+
+  var listing = document.querySelector('body')
+  listing.addEventListener('click', function(event) {
+    if (event.target.classList.contains('add-to-watchlist')) {
+      $.ajax({url: '/watchlist'}).done(displayWatchlistCount)
+    }
   })
 </script>

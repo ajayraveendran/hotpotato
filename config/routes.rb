@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get '/price_response', to: 'listings#price_response'
 
   post '/watchlist', to: 'watchlists#create'
+  get '/watchlist', to: 'watchlists#get_watchlist_count'
 end

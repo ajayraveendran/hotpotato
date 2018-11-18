@@ -60,7 +60,7 @@
 <% if logged_in %>
   Username: <%= session[:username] %>
   <p>Number of watchlist items:
-      <%= watchlist_items_count %>
+      <span id="watchlist-count"><%= watchlist_count %></span>
   </p>
   <p>Purchased items: </p>
   

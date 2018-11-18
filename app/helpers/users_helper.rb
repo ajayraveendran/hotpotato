@@ -1,5 +1,5 @@
 module UsersHelper
-  def watchlist_items_count
+  def watchlist_count
     if current_user.watchlist
       current_user.watchlist.listing_ids.count
     else
