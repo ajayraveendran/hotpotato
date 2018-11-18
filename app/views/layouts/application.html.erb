@@ -15,48 +15,50 @@
 
     <nav class="header">
 
-      <span class="header-toggle">
-        <i class="fas fa-bars"></i>
-      </span>
-
       <a href="/" class="logo"><img src="https://i.imgur.com/mw0zZOy.png"></a>
 
       <h1>HotPotato</h1>
 
-      <ul class="nav-bar">
-        
-        <li>
-          <a href="/login" class="nav-links">Login</a>
-        </li>
-        <li>
-          <a href="/users/new" class="nav-links">Signup</a>
-        </li>
-        <li>
-          <a href="/listings" class="nav-links">Show all listings</a>
-        </li>
-        <li>
-          <a href="#" class="nav-links">Finishing soon</a>
-        </li>
-        <li>
-          <a href="#" class="nav-links">Watchlist</a>
-        </li>
-        <li>
-          <a href="/listings/new" class="nav-links">Add new item</a>
-        </li>
-        <li>
-          <form action="/listings/search">
-          <textarea name="listing_search"></textarea>
-          <button>Search</button>
-          </form>
-        </li>
-
-      </ul>
+      <span class="header-toggle">
+        <i class="fas fa-bars"></i>
+      </span>
 
     </nav>
 
+      <ul class="nav-bar">      
+
+        <% if logged_in %>
+          <li>
+            <a href="/listings" class="nav-links">Show all listings</a>
+          </li>
+          <li>
+            <a href="#" class="nav-links">Finishing soon</a>
+          </li>
+          <li>
+            <a href="#" class="nav-links">Watchlist</a>
+          </li>
+          <li>
+            <a href="/listings/new" class="nav-links">New listing</a>
+          </li>
+        <% else %>
+          <li>
+            <a href="/login" class="nav-links">Login</a>
+          </li>
+          <li>
+            <a href="/users/new" class="nav-links">Signup</a>
+          </li>
+          <li>
+            <a href="/listings" class="nav-links">Show all listings</a>
+          </li>
+          <li>
+            <a href="#" class="nav-links">Finishing soon</a>
+          </li>
+        <% end %>
+
+      </ul>
+
 <% if logged_in %>
-  Session User ID:<%= session[:user_id] %>
-  Session Username:<%= session[:username] %>
+  Username: <%= session[:username] %>
   <input type="hidden" name="_method">
   <%= button_to 'Logout', login_path, method: 'delete' %>
 <% else %>

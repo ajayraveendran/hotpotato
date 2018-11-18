@@ -1,0 +1,2 @@
+class ListingsWatchlist < ApplicationRecord
+end
