@@ -24,7 +24,8 @@ body {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 1.2em;
+  text-align: center;
   font-family: 'Permanent Marker', cursive;
 }
 
@@ -85,5 +86,17 @@ p {
 }
 
 .show-item {
+  margin: 2em;
+}
+
+.login-page {
+  margin: 2em;
+}
+
+.signup-page {
+  margin: 2em;
+}
+
+.add-item {
   margin: 2em;
 }
