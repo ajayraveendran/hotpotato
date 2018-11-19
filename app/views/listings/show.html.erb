@@ -1,15 +1,13 @@
-<h2>Listing <%= @listing.id %></h2>
+<h2>For sale: <%= @listing.title %></h2>
 
 <div class="show-item">
-<p>Listing Title: <%= @listing.title %></p>
 
 <img src="<%= @listing.image_url %>" alt="">
-
 
 <%= form_tag listing_path(@listing), method: 'put' do %>
   <div id="<%= @listing.id %>">
     <input type="hidden" id="current-price" name="current_price" value="">
-    <p>Listing ID: <%= @listing.id %></p>
+    <br>
     <p>Listing Start Price: $<%= @listing.start_price %></p>
     <p>Listing Start Time: <%= @listing.start_time.in_time_zone("Melbourne").strftime('%A %e %B %Y %r') %></p>
 
