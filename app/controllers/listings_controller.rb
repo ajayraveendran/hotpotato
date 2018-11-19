@@ -5,6 +5,16 @@ class ListingsController < ApplicationController
     @listings = Listing.all
   end
 
+  def filter
+    if (params[:category] == 'all')
+      @listings = Listing.all
+      render :index
+    else
+      @listings = Listing.where(category: params[:category])
+      render :index
+    end
+  end
+
   def edit
     @listing = Listing.find(params[:id])
   end
