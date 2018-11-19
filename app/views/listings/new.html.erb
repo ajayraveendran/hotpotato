@@ -1,5 +1,7 @@
 <h2>Add new item</h2>
 
+<div class="add-item">
+
 <%= form_tag '/listings', method: 'post' do %>
 
   <label for="start_price">Item Start Price: </label>
@@ -17,3 +19,5 @@
   <button type="submit">Save</button>
 
 <% end %>
+
+</div>
