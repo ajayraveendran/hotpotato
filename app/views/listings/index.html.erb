@@ -9,7 +9,7 @@
 
 <% @listings.each do |listing| %>
   <div id="<%= listing.id %>" class="listing">
-    <p><a href="/listings/<%= listing.id %>"> Listing ID: <%= listing.id %> </a></p>
+    <p><a href="/listings/<%= listing.id %>"><%= listing.title %> </a></p>
     <p>Listing Start Price: $<%= listing.start_price %></p>
     <p>Listing Start Time: <%= listing.start_time.in_time_zone("Melbourne").strftime('%A %e %B %Y %r') %></p>
     <% if (listing.purchase_price == nil && Time.now.utc.to_i < listing.start_time.to_i && Time.now.utc.to_i < listing.end_time.to_i)%>
@@ -40,7 +40,12 @@
 
     listingIds.forEach(element => {
     let listingId = Number(element.closest('div').id)
-    element.textContent = data.result[listingId]
+    // debugger
+    if (data.result[listingId].includes("Auction")) {
+      element.textContent = data.result[listingId]
+    } else {
+      element.textContent = `Current Price: $${data.result[listingId]}`
+    }
   });
 
   })
