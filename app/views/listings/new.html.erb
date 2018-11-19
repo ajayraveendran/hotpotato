@@ -2,6 +2,18 @@
 
 <%= form_tag '/listings', method: 'post' do %>
 
+  <label for="title">Item Title:</label>
+  <input type="text" name="title">
+  <label for="category">Category</label>
+  <select name="category" id="">
+    <option>Select a category:</option>
+    <option value="vouchers">vouchers</option>
+    <option value="gift cards">gift cards</option>
+    <option value="laptops">laptops</option>
+    <option value="cars">cars</option>
+  </select>
+  <br>
+  <br>
   <label for="start_price">Item Start Price: </label>
   <input name="start_price" type="text">
   <br>
