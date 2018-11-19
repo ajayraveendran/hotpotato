@@ -1,5 +1,7 @@
 <h2>Add new item</h2>
 
+<div class="add-item">
+
 <%= form_tag '/listings', method: 'post' do %>
 
   <label for="title">Item Title:</label>
@@ -29,3 +31,5 @@
   <button type="submit">Save</button>
 
 <% end %>
+
+</div>
