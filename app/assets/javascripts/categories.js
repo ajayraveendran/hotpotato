@@ -1,4 +1,4 @@
-var categoryArray = ['vouchers', 'gift cards', 'laptops', 'cars'];
+var categoryArray = ['All', 'Cars', 'Gift Cards', 'Laptops', 'Vouchers'];
 
 var categories = document.querySelector('#categories');
 
@@ -10,7 +10,7 @@ for (var i = 0; i < categoryArray.length; i++) {
 };
 
 function filterCategories(event) {
-  if (event.target.value == 'vouchers') {
-    
-  }
+  window.location.href = `/filter/${event.target.value.toLowerCase()}`
 }
+
+categories.addEventListener('change', filterCategories)
