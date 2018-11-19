@@ -1,31 +1,40 @@
-# README
+# Hot Potato
 
-- [ ] Explanations of the technologies used
-- [ ] A few paragraphs about the general approach you took
-- [ ] Link to your user stories – who are your users, what do they want, and why?
-- [ ] Link to your wireframes – sketches of major views / interfaces in your application
-- [ ] Link to your diagrams - database schema
-- [ ] Descriptions of any unsolved problems or major hurdles your team had to overcome
+**Drop it like a [Hot Potato][1]!**
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[1]: https://hotpotatos.herokuapp.com/listings/
+* An online auction house where you first set a selling price for your item.
+* Once the auction goes live, the price goes down by a set amount every 3 seconds.
+* First potential buyer with the guts to purchase bags the item.
 
-Things you may want to cover:
 
-* Ruby version
+### Technologies used
 
-* System dependencies
+* Ruby on Rails
+* Server Sent Events
+* AJAX
+* PostgreSQL
+* Viewport
+* Trello
 
-* Configuration
+### The team's approach
 
-* Database creation
+As this was our first project together, we spent a lot of time organising tasks using Trello. This ultimately helped a lot. We more or less always knew who was working on what, minimising double ups. We picked up cards based on our individual strengths, bouncing ideas off each other as and when we ran into issues. With regards to GitHub and managing pull requests, we followed a set process as listed by the instructors which almost eliminated the chances of losing work. All in all it was great learning experience.
 
-* Database initialization
+### User Stories
 
-* How to run the test suite
+Our users are anyone looking at selling an item online (that is legally sellable, of course!). The app is based around creating sense of urgency around purchasing auction items. The idea that the continuously dropping price might mean that someone else might bag the item should hopefully create some serious FOMO! 
 
-* Services (job queues, cache servers, search engines, etc.)
+From the seller's point of view, they need to be prepared to sell the product for a lot lower than they anticipate. Manage your start price effectively!
 
-* Deployment instructions
+### Wireframes and DB structure
 
-* ...
+[UI Wireframe](https://i.imgur.com/CGegRkW.png)
+
+[DB structure](https://i.imgur.com/WS0qz7u.png)
+
+### Upcoming milestones
+
+* Link the seller and buyer
+* Make buy button appear/disappear without having to refresh the page
+* Tests
