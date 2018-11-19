@@ -15,7 +15,7 @@
     <% if (listing.purchase_price == nil && Time.now.utc.to_i < listing.start_time.to_i && Time.now.utc.to_i < listing.end_time.to_i)%>
       <p><span id="current-price"></span></p>
     <% elsif (listing.purchase_price == nil && Time.now.utc.to_i < listing.end_time.to_i)%>
-      <p>Current Price: $<span id="current-price"></span></p>
+      <p><span id="current-price"></span></p>
     <% elsif (listing.purchase_price == nil && Time.now.utc.to_i > listing.end_time.to_i)%>
       <p><span id="current-price"></span></p>
     <% else %>
