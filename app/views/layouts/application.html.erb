@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HotPotato</title>
+    <title>HotPotato: Catch it while you can!</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Bevan" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   </head>
 
@@ -17,7 +17,7 @@
 
       <a href="/" class="logo"><img src="https://i.imgur.com/mw0zZOy.png"></a>
 
-      <h1>HotPotato</h1>
+      <h1>Catch it while you can!</h1>
 
       <span class="header-toggle">
         <i class="fas fa-bars"></i>
@@ -62,14 +62,6 @@
         <% end %>
 
       </ul>
-
-<% if logged_in %>
-  
-  <%= button_to 'Logout', login_path, method: 'delete' %>
-<% else %>
-  <%= button_to 'Login', login_path, method: 'post' %>
-<% end %>
-<br>
 
   <%= yield %>
 

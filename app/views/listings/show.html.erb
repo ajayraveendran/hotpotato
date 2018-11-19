@@ -1,4 +1,6 @@
 <h2>Listing <%= @listing.id %></h2>
+
+<div class="show-item">
 <p>Listing Title: <%= @listing.title %></p>
 
 <img src="<%= @listing.image_url %>" alt="">
@@ -27,6 +29,8 @@
   <% end %>
   
 <% end %>
+
+</div>
 
 <script>
   const listingIds = document.querySelectorAll('#current-price')
