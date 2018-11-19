@@ -37,10 +37,6 @@
 
     listingIds.forEach(element => {
     let listingId = Number(element.closest('div').id)
-<<<<<<< HEAD
-    element.textContent = data.result[listingId]
-    });
-=======
 
     if (data.result[listingId].includes("Auction")) {
       element.textContent = data.result[listingId]
@@ -48,7 +44,6 @@
       element.textContent = `Current Price: $${data.result[listingId]}`
     }
   });
->>>>>>> master
 
   })
 
