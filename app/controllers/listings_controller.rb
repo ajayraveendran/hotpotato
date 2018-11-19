@@ -14,8 +14,8 @@ class ListingsController < ApplicationController
   end
 
   def create
-    @listing = Listing.new
     listing = Listing.new
+    listing.seller_id = current_user.id
     listing.start_price = params[:start_price]
     listing.image_url = params[:image_url]
     listing.start_time = params[:start_time].in_time_zone("Melbourne")
@@ -30,14 +30,15 @@ class ListingsController < ApplicationController
 
   def update
     listing = Listing.find(params[:id])
-    listing.title = params[:title]
-    listing.image_url = params[:image_url]
     listing.purchase_price = params[:current_price]
+    listing.purchase_time = Time.now.in_time_zone("Melbourne")
+    listing.status = 'purchased'
+    listing.buyer_id = current_user.id
     
     if listing.save
-      redirect_to '/listings'
+      redirect_to "/listings/#{listing.id}"
     else
-      render :edit
+      redirect_to '/listings'
     end
   end
 
@@ -72,7 +73,7 @@ class ListingsController < ApplicationController
         time_diff = Time.now.utc - listing.start_time
         no_of_decrements = total_seconds / interval
         dollar_decrements = listing.start_price / no_of_decrements
-        return_value = "Current price is $#{(listing.start_price - ((time_diff * dollar_decrements) / interval)).round(0)}"
+        return_value = "#{(listing.start_price - ((time_diff * dollar_decrements) / interval)).round(0)}"
 
       end
       result[listing.id] = return_value
