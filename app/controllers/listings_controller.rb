@@ -21,6 +21,8 @@ class ListingsController < ApplicationController
     listing.start_time = params[:start_time].in_time_zone("Melbourne")
     total_seconds = time_grab(listing.start_price)
     listing.end_time = listing.start_time + total_seconds
+    listing.category = params[:category]
+    listing.title = params[:title]
     if listing.save
       redirect_to '/'
     else
