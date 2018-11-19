@@ -22,8 +22,9 @@
       <p>End Price: $<%= listing.purchase_price %></p>
     <% end %>
 
-
-    <%= link_to 'Watch', watchlist_path(listing_id: "#{listing.id}"), method: 'create', class: 'add-to-watchlist' %>
+    <% if logged_in %>
+      <%= link_to 'Watch', watchlist_path(listing_id: "#{listing.id}"), method: 'create', class: 'add-to-watchlist' %>
+    <% end %>
 
   </div>
   <hr>
