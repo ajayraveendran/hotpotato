@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :listings
 
+  get '/filter/:category', to: 'listings#filter'
+
   resources :users
 
   get 'login', to: 'sessions#new'
