@@ -5,13 +5,11 @@
   </select>
 </form>
 
-<h2>Listings</h2>
-
 <% @listings.each do |listing| %>
-  <div id="<%= listing.id %>" class="listing" data-category="<%= listing.category %>">
-    <p><a href="/listings/<%= listing.id %>"> Listing ID: <%= listing.id %> </a></p>
-    <p>Listing Start Price: $<%= listing.start_price %></p>
-    <p>Listing Start Time: <%= listing.start_time.in_time_zone("Melbourne").strftime('%A %e %B %Y %r') %></p>
+  <div id="<%= listing.id %>" class="listing">
+    <h2><a href="/listings/<%= listing.id %>"><%= listing.title %> </a></h2>
+    <a href="/listings/<%= listing.id %>"><img src="<%= listing.image_url %>" alt=""></a>
+    <p>Start Price: $<%= listing.start_price %></p>
     <% if (listing.purchase_price == nil && Time.now.utc.to_i < listing.start_time.to_i && Time.now.utc.to_i < listing.end_time.to_i)%>
       <p><span id="current-price"></span></p>
     <% elsif (listing.purchase_price == nil && Time.now.utc.to_i < listing.end_time.to_i)%>
@@ -23,11 +21,10 @@
     <% end %>
 
     <% if logged_in %>
-      <%= link_to 'Watch', watchlist_path(listing_id: "#{listing.id}"), method: 'create', class: 'add-to-watchlist' %>
+      <p class="watchlist-link"><%= link_to 'Watch Listing', watchlist_path(listing_id: "#{listing.id}"), method: 'create', class: 'add-to-watchlist' %></p>
     <% end %>
 
   </div>
-  <hr>
 <% end %>
 
 <script>
@@ -40,8 +37,18 @@
 
     listingIds.forEach(element => {
     let listingId = Number(element.closest('div').id)
+<<<<<<< HEAD
     element.textContent = data.result[listingId]
     });
+=======
+
+    if (data.result[listingId].includes("Auction")) {
+      element.textContent = data.result[listingId]
+    } else {
+      element.textContent = `Current Price: $${data.result[listingId]}`
+    }
+  });
+>>>>>>> master
 
   })
 

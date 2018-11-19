@@ -67,7 +67,7 @@ class ListingsController < ApplicationController
       interval = 3
       
       if Time.now.utc.to_i < listing.start_time.to_i && Time.now.utc.to_i < listing.end_time.to_i
-        return_value = "Auction starts in #{formatted_time(listing.start_time.to_i - Time.now.utc.to_i)}"
+        return_value = "Auction starts in: #{formatted_time(listing.start_time.to_i - Time.now.utc.to_i)}"
       elsif Time.now.utc.to_i > listing.end_time.to_i
         return_value = "Auction has expired"
       else 
@@ -113,7 +113,7 @@ class ListingsController < ApplicationController
     mm, ss = total_seconds.divmod(60)
     hh, mm = mm.divmod(60)
     dd, hh = hh.divmod(24)
-    "#{dd} days, #{hh} hours, #{mm} minutes and #{ss} seconds"
+    "#{dd} days, #{hh} hours, #{mm} min, #{ss} sec"
   end
 
 end

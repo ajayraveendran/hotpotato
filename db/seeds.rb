@@ -64,7 +64,7 @@ l4 = Listing.new
 l4.start_price = 2500
 l4.start_time = Time.now.in_time_zone("Melbourne") + 30000
 l4.end_time = l4.start_time + 1200
-l4.image_url ='https://officeproductsdepot.com.au/wcsstore/ONCatalogAssetStore/images/DavidJonesGC.jpg'
+l4.image_url ='https://cdn.shopify.com/s/files/1/2716/7590/products/mi-laptop-pro-15-6-inch-3725679001644_600x.jpg?v=1534831288'
 l4.title = "Catch a laptop bargain!"
 l4.category = 'laptops'
 l4.status = 'live'
