@@ -2,7 +2,7 @@
 
 **Drop it like a [Hot Potato][1]!**
 
-[1]: https://hotpotatos.herokuapp.com/listings/
+[1]: https://hotpotato12.herokuapp.com/
 * An online auction house where you first set a selling price for your item.
 * Once the auction goes live, the price goes down by a set amount every 3 seconds.
 * First potential buyer with the guts to purchase bags the item.

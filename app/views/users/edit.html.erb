@@ -1,0 +1,16 @@
+<h2>Edit profile</h2>
+
+<%= form_tag(user_path, method: 'put') do %>
+  
+  <label for="username">User Name: </label>
+  <input type="text" name="username">
+  
+  <label for="email">Email: </label>
+  <input type="text" name="email">
+  
+  <label for="password">Password: </label>
+  <input type="text" name="password">
+
+  <button type="submit">Save</button>
+
+<% end %>

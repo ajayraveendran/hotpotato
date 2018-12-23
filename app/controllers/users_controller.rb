@@ -18,4 +18,26 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    user = User.find(params[:id])
+    user.username = params[:username]
+    user.email = params[:email]
+    user.password= params[:password]
+        
+    if user.save
+      session.delete(:user_id)
+      redirect_to "/"
+    else
+      redirect_to "/users/#{user.id}/edit"
+    end
+  end
+
 end

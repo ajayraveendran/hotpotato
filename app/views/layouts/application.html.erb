@@ -14,60 +14,31 @@
   <body>
 
     <nav class="header">
-
       <a href="/" class="logo"><img src="https://i.imgur.com/mw0zZOy.png"></a>
-
       <h1>Catch it while you can!</h1>
-
-      <span class="header-toggle">
-        <i class="fas fa-bars"></i>
-      </span>
-
+      <span class="header-toggle"><i class="fas fa-bars"></i></span>
     </nav>
 
-      <ul class="nav-bar">      
+    <ul class="nav-bar">      
+      <% if logged_in %>
+        <li><a href="/users/<%= session[:user_id] %>"><%= session[:username] %></a></li>
+        <li><a href="/listings" class="nav-links">Show all listings</a></li>
+        <li><a href="#" class="nav-links" id="watchlist-count">Watchlist (<%= watchlist_count %>)</a></li>
+        <li><a href="/listings/new" class="nav-links">New listing</a></li>
+        <li><%= link_to 'Logout', login_path, method: 'delete' %></li>
+      <% else %>
+        <li><a href="/login" class="nav-links">Login</a></li>
+        <li><a href="/users/new" class="nav-links">Signup</a></li>
+        <li><a href="/listings" class="nav-links">Show all listings</a></li>
+        <li>
+          <a href="#" class="nav-links">Finishing soon</a></li>
+      <% end %>
+    </ul>
 
-        <% if logged_in %>
-          <li>
-          Username: <%= session[:username] %>
-          </li>
-          <li>
-            <a href="/listings" class="nav-links">Show all listings</a>
-          </li>
-          <li>
-            <a href="#" class="nav-links">Finishing soon</a>
-          </li>
-          <li>
-            <a href="#" class="nav-links" id="watchlist-count">Watchlist (<%= watchlist_count %>)</a>
-          </li>
-          <li>
-            <a href="/listings/new" class="nav-links">New listing</a>
-          </li>
-          <li>
-          <%= link_to 'Logout', login_path, method: 'delete' %>
-          </li>
-        <% else %>
-          <li>
-            <a href="/login" class="nav-links">Login</a>
-          </li>
-          <li>
-            <a href="/users/new" class="nav-links">Signup</a>
-          </li>
-          <li>
-            <a href="/listings" class="nav-links">Show all listings</a>
-          </li>
-          <li>
-            <a href="#" class="nav-links">Finishing soon</a>
-          </li>
-        <% end %>
+    <%= yield %>
 
-      </ul>
-
-  <%= yield %>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-  <%= javascript_include_tag 'application' %>
-  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <%= javascript_include_tag 'application' %>
   </body>
 
 </html>
