@@ -21,6 +21,7 @@ class ListingsController < ApplicationController
 
   def show
     @listing = Listing.find(params[:id])
+    @seller = User.find(@listing.seller_id)
   end
 
   def create
@@ -46,11 +47,10 @@ class ListingsController < ApplicationController
     listing.purchase_time = Time.now.in_time_zone("Melbourne")
     listing.status = 'purchased'
     listing.buyer_id = current_user.id
-    
     if listing.save
-      redirect_to "/listings/#{listing.id}"
+      redirect_to "/listings/#{listing.id}/connect"
     else
-      redirect_to '/listings'
+      redirect_to "/listings/#{listing.id}"
     end
   end
 
@@ -66,37 +66,36 @@ class ListingsController < ApplicationController
 
   def price_response
     response.headers['Content-Type'] = 'text/event-stream'
-    sse = SSE.new(response.stream, retry: 3000, event: "ping")
+    sse = SSE.new(response.stream, retry: 1000, event: "ping")
     
     result = {}
     listings = Listing.all
-    listings.each do |listing|
-      
-      if listing.purchase_price == nil
-      total_seconds = time_grab(listing.start_price)
-      interval = 3
-      
+    listings.each do |listing|  
+    total_seconds = time_grab(listing.start_price)
+    interval = 3
+     
       if Time.now.utc.to_i < listing.start_time.to_i && Time.now.utc.to_i < listing.end_time.to_i
-        return_value = "Auction starts in: #{formatted_time(listing.start_time.to_i - Time.now.utc.to_i)}"
+        result_string = "Auction starts in: #{formatted_time(listing.start_time.to_i - Time.now.utc.to_i)}"
       elsif Time.now.utc.to_i > listing.end_time.to_i
-        return_value = "Auction has expired"
+        result_string = "Auction has expired"
       else 
         # return decrementing current price
         time_diff = Time.now.utc - listing.start_time
         no_of_decrements = total_seconds / interval
         dollar_decrements = listing.start_price / no_of_decrements
-        return_value = "#{(listing.start_price - ((time_diff * dollar_decrements) / interval)).round(0)}"
+        result_string = "#{(listing.start_price - ((time_diff * dollar_decrements) / interval)).round(0)}"
+      end
 
-      end
-      result[listing.id] = return_value
-      end
+    result[listing.id] = [result_string, listing.status, listing.buyer_id, listing.seller_id, listing.purchase_price]
     end
-    sse.write({result: result})
-  ensure
-    sse.close
+      sse.write({result: result})
+    ensure
+      sse.close
   end
 
-  def update_price
+  def connect
+    @listing = Listing.find(params[:id])
+    @seller = User.find(@listing.seller_id)
   end
 
   

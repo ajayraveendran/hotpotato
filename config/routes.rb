@@ -18,4 +18,6 @@ Rails.application.routes.draw do
 
   post '/watchlist', to: 'watchlists#create'
   get '/watchlist', to: 'watchlists#get_watchlist_count'
+
+  get 'listings/:id/connect', to: 'listings#connect'
 end
