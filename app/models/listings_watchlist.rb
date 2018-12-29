@@ -1,2 +1,0 @@
-class ListingsWatchlist < ApplicationRecord
-end

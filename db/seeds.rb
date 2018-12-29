@@ -1,5 +1,3 @@
-ListingsWatchlist.destroy_all
-Watchlist.destroy_all
 Listing.destroy_all
 User.destroy_all
 
@@ -18,14 +16,6 @@ u2.email = "test@test.com"
 u2.password = 'pudding'
 u2.is_active = true
 u2.save
-
-w1 = Watchlist.new
-w1.user_id = 1
-w1.save
-
-w2 = Watchlist.new
-w2.user_id = 2
-w2.save
 
 l1 = Listing.new
 l1.id = 1

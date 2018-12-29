@@ -23,7 +23,7 @@
       <% if logged_in %>
         <li><a href="/users/<%= session[:user_id] %>"><%= session[:username] %></a></li>
         <li><a href="/listings" class="nav-links">Show all listings</a></li>
-        <li><a href="#" class="nav-links" id="watchlist-count">Watchlist (<%= watchlist_count %>)</a></li>
+        <%# <li><a href="#" class="nav-links" id="watchlist-count">Watchlist (<%= watchlist_count %>)</a></li> %>
         <li><a href="/listings/new" class="nav-links">New listing</a></li>
         <li><%= link_to 'Logout', login_path, method: 'delete' %></li>
       <% else %>

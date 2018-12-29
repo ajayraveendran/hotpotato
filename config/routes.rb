@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :watchlists
   root 'listings#index'
 
   resources :listings

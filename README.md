@@ -35,6 +35,6 @@ From the seller's point of view, they need to be prepared to sell the product fo
 
 ### Upcoming milestones
 
-* Link the seller and buyer
-* Make buy button appear/disappear without having to refresh the page
+* ~~Link the seller and buyer.~~ Done using a connect page once buy button is pressed
+* ~~Make buy button appear/disappear dynamically~~ Buy button is still visible, but is deactivated for all watchers once a buyer is regustered.
 * Tests

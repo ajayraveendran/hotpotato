@@ -18,9 +18,9 @@
         <p>End Price: $<%= listing.purchase_price %></p>
       <% end %>
     
-    <% if logged_in %>
-      <p class="watchlist-link"><%= link_to 'Watch Listing', watchlist_path(listing_id: "#{listing.id}"), method: 'create', class: 'add-to-watchlist' %></p>
-    <% end %>
+    <%# <% if logged_in %>
+      <%# <p class="watchlist-link"><%= link_to 'Watch Listing', watchlist_path(listing_id: "#{listing.id}"), method: 'create', class: 'add-to-watchlist' %>
+    <%# <% end %> 
 
   </div>
 <% end %>
@@ -45,15 +45,15 @@
 
   // update Watchlist counter via DOM manipulation
   let watchlistCount = document.querySelector('#watchlist-count')
+  let listing = document.querySelector('body')
   
   const displayWatchlistCount = function(response) {
     watchlistCount.textContent = response.result
   }
 
-  let listing = document.querySelector('body')
   listing.addEventListener('click', function(event) {
     if (event.target.classList.contains('add-to-watchlist')) {
-      $.ajax({url: '/watchlist'}).done(displayWatchlistCount)
+      $({url: '/watchlist'}).done(displayWatchlistCount)
     }
   })
 </script>
