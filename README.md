@@ -12,7 +12,7 @@
 
 * Ruby on Rails
 * Server Sent Events
-* AJAX
+* Jquery
 * PostgreSQL
 * Viewport
 * Trello
@@ -36,5 +36,6 @@ From the seller's point of view, they need to be prepared to sell the product fo
 ### Upcoming milestones
 
 * ~~Link the seller and buyer.~~ Done using a connect page once buy button is pressed
-* ~~Make buy button appear/disappear dynamically~~ Buy button is still visible, but is deactivated for all watchers once a buyer is regustered.
+* ~~Make buy button appear/disappear dynamically~~ Done by including button generation in SSE.
+* ~~Make watchlist work as intended.~~ Done.
 * Tests
