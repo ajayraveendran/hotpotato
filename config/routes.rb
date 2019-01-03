@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :watchlists
   root 'listings#index'
 
   resources :listings
@@ -17,8 +16,10 @@ Rails.application.routes.draw do
 
   get '/price_response', to: 'listings#price_response'
 
-  post '/watchlist', to: 'watchlists#create'
-  get '/watchlist', to: 'watchlists#get_watchlist_count'
+  get 'watchlist', to: 'listings#show_watchlist'
+  post 'watchlist/:id', to: 'listings#toggle_watchlist'
 
   get 'listings/:id/connect', to: 'listings#connect'
+
+  
 end

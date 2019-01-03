@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_29_055409) do
+ActiveRecord::Schema.define(version: 2019_01_02_015824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,17 +38,10 @@ ActiveRecord::Schema.define(version: 2018_12_29_055409) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.boolean "is_active"
+    t.integer "watchlist", default: [], array: true
     t.index ["username"], name: "index_users_on_username", unique: true
-  end
-
-  create_table "watchlists", force: :cascade do |t|
-    t.integer "watcher_id"
-    t.integer "listing_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "listings", "users", column: "buyer_id"
   add_foreign_key "listings", "users", column: "seller_id"
-  add_foreign_key "watchlists", "users", column: "watcher_id"
 end

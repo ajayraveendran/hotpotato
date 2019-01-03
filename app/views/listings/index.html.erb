@@ -15,45 +15,38 @@
       <% if listing.purchase_price == nil %>
         <p><span id="result-string"></span></p>
       <% else %>
-        <p>End Price: $<%= listing.purchase_price %></p>
+        <p>Sold for $<%= listing.purchase_price %></p>
       <% end %>
     
-    <%# <% if logged_in %>
-      <%# <p class="watchlist-link"><%= link_to 'Watch Listing', watchlist_path(listing_id: "#{listing.id}"), method: 'create', class: 'add-to-watchlist' %>
-    <%# <% end %> 
+    <% if logged_in %>
+      <% if @current_user.watchlist.include?(listing.id)%>
+        <%= form_tag "/watchlist/#{listing.id}", method: 'post' do %>
+          <button class="watchlist-link" name="id" value="<%= listing.id%>">Remove from Watchlist</button>
+        <% end %>
+      <% else %>
+        <%= form_tag "/watchlist/#{listing.id}", method: 'post' do %>
+          <button class="watchlist-link" name="id" value="<%= listing.id%>">Add to Watchlist</button>
+        <% end %>
+      <% end %>
+    <% end %> 
 
-  </div>
+  </div>  
 <% end %>
 
 <script>
   const resultString = document.querySelectorAll('#result-string')
-
   const source = new EventSource('/price_response');
 
   source.addEventListener("ping", function(event) {
     let obj = JSON.parse(event.data).result
     resultString.forEach(element => {
       let listingId = Number(element.closest('div').id)
-      if (obj[listingId][0].includes("Auction")) {
+      if (obj[listingId][0].includes("Auction") || obj[listingId][0].includes("Sold")) {
         element.textContent = obj[listingId][0]
       } else {
-        element.textContent = `Current Price: $${obj[listingId][0]}`
+        element.textContent = `Current Price is $${obj[listingId][0]}`
       }
     });
-    // debugger
   })
 
-  // update Watchlist counter via DOM manipulation
-  let watchlistCount = document.querySelector('#watchlist-count')
-  let listing = document.querySelector('body')
-  
-  const displayWatchlistCount = function(response) {
-    watchlistCount.textContent = response.result
-  }
-
-  listing.addEventListener('click', function(event) {
-    if (event.target.classList.contains('add-to-watchlist')) {
-      $({url: '/watchlist'}).done(displayWatchlistCount)
-    }
-  })
 </script>

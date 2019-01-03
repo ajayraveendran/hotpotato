@@ -1,0 +1,36 @@
+<h2><%= @user.username %>'s Watchlist</h2>
+
+<% @watchlist.each do |listing| %>
+  <div id="<%= listing.id %>" class="listing">
+
+    <h2><a href="/listings/<%= listing.id %>"><%= listing.title %> </a></h2>
+    <a href="/listings/<%= listing.id %>"><img src="<%= listing.image_url %>" alt=""></a>
+    
+    <p>Start Price: $<%= listing.start_price %></p>
+      <% if listing.purchase_price == nil %>
+        <p><span id="result-string"></span></p>
+      <% else %>
+        <p>End Price: $<%= listing.purchase_price %></p>
+      <% end %>
+
+</div>
+<% end %>
+
+<script>
+  const resultString = document.querySelectorAll('#result-string')
+  const source = new EventSource('/price_response');
+
+  source.addEventListener("ping", function(event) {
+    let obj = JSON.parse(event.data).result
+    resultString.forEach(element => {
+      let listingId = Number(element.closest('div').id)
+      // debugger
+      if (obj[listingId][0].includes("Auction")) {
+        element.textContent = obj[listingId][0]
+      } else {
+        element.textContent = `Current Price: $${obj[listingId][0]}`
+      }
+    });
+  })
+
+</script>

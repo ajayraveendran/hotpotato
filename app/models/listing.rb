@@ -1,6 +1,5 @@
 class Listing < ApplicationRecord
-  has_and_belongs_to_many :watchlists
-
+  
   validates :start_price, presence: true
   validates :start_time, presence: true
   validate :start_time_cannot_be_in_the_past, on: :create

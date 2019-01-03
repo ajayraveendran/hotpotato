@@ -2,38 +2,39 @@
 
 <div class="show-item">
 
-<img src="<%= @listing.image_url %>" alt="">
+  <img src="<%= @listing.image_url %>" alt="">
 
-<%= form_tag listing_path(@listing), method: 'put' do %>
-  <div id="<%= @listing.id %>">
+  <%= form_tag listing_path(@listing), method: 'put' do %>
+    <div id="<%= @listing.id %>">
 
-    <p>Listing Start Price: $<%= @listing.start_price %></p>
+      <p>Listing Start Price: $<%= @listing.start_price %></p>
+      
+      <p>Listing Start Time: <%= @listing.start_time.in_time_zone("Melbourne").strftime('%A %e %B %Y %r') %></p>
+      
+      <% if @seller.id != session[:user_id] %>
+        <p id="seller-id">Seller: <%= @seller.username%></p>    
+      <% else %>
+        <span id="seller-id" style="display:none"><%= @seller.id %></span>
+      <% end %>
+
+      <% if @listing.purchase_price == nil %>
+        <p><span id="result-string"></span></p>
+      <% else %>
+        <p>Sold for $<%= @listing.purchase_price %></p>
+      <% end %>
+
+      <% auction_is_live = Time.now.utc.to_i > @listing.start_time.to_i && Time.now.utc.to_i < @listing.end_time.to_i %>
+      
+      <% if session[:user_id] == nil && auction_is_live%>
+        <p>Please log in to buy this item</p>
+      <% elsif @listing.purchase_price == nil && @seller.id != session[:user_id] && auction_is_live %>
+        <button id="buy-button" name="current_price" value="">BUY</button>
+      <% else %>
+        <button id="buy-button" name="current_price" value="" style="display:none">BUY</button>
+      <% end %> 
+    </div>
     
-    <p>Listing Start Time: <%= @listing.start_time.in_time_zone("Melbourne").strftime('%A %e %B %Y %r') %></p>
-    
-    <% if @seller.id != session[:user_id] %>
-      <p>Seller: <%= @seller.username%> </p>
-    <% end %>
-
-    <% if @listing.purchase_price == nil %>
-      <p><span id="result-string"></span></p>
-    <% else %>
-      <p>End Price: $<%= @listing.purchase_price %></p>
-    <% end %>
-
-    <% auction_is_live = Time.now.utc.to_i > @listing.start_time.to_i && Time.now.utc.to_i < @listing.end_time.to_i %>
-    
-    <% if session[:user_id] == nil && auction_is_live%>
-      <p>Please log in to buy this item</p>
-    <% elsif @listing.purchase_price == nil && @seller.id != session[:user_id] && auction_is_live %>
-      <button id="buy-button" name="current_price" value="">BUY</button>
-    <% else %>
-      <button id="buy-button" name="current_price" value="" style="display:none">BUY</button>
-    <% end %>
-
-  </div>
-
-<% end %>
+  <% end %>
 
 </div>
 
@@ -48,17 +49,23 @@
       let div = element.closest('div')
       let listingId = Number(div.id)
       let buyBtn = $(div).find('#buy-button')[0]
-      // debugger
-      if (obj[listingId][0].includes("Auction")) {
+      let sellerSpan = $(div).find('#seller-id')[0]
+      let sellerId = Number(sellerSpan.textContent)
+      if (obj[listingId][0].includes("Auction") || obj[listingId][0].includes("Sold")) 
+      {
         element.textContent = obj[listingId][0]
-      } else {
+        buyBtn.disabled = 'true'
+        buyBtn.style.display = "none"
+      } else if (sellerId === obj[listingId][3]) 
+      {
+        element.textContent = `Current Price: $${obj[listingId][0]}`
+        buyBtn.disabled = 'true'
+        buyBtn.style.display = "none"
+      } else 
+      {
         element.textContent = `Current Price: $${obj[listingId][0]}`
         buyBtn.style.display = "inline-block"
         buyBtn.value = obj[listingId][0]
-      }
-
-      if (obj[listingId][1] === 'purchased') {
-        buyBtn.disabled = 'true'
       }
     });
   })

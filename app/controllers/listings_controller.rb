@@ -1,5 +1,7 @@
+# encoding: utf-8
 class ListingsController < ApplicationController
   include ActionController::Live
+  include SessionsHelper
 
   def index
     @listings = Listing.all
@@ -63,6 +65,36 @@ class ListingsController < ApplicationController
     end
   end
   
+  def connect
+    @listing = Listing.find(params[:id])
+    @seller = User.find(@listing.seller_id)
+  end
+
+  def show_watchlist
+    @user = User.find(current_user.id)
+    @watchlist = []
+
+    @user.watchlist.each do |listing_id|
+      listing = Listing.find(listing_id)
+      @watchlist << listing
+    end
+    render :watchlist
+  end
+
+  def toggle_watchlist
+    @listings = Listing.all
+    user = User.find(current_user.id)
+    listing= Listing.find(params[:id])    
+    if user.watchlist.include?(listing.id)
+      user.watchlist.delete(listing.id)
+      user.save
+      render :index
+    else
+      user.watchlist << listing.id
+      user.save
+      render :index
+    end
+  end
 
   def price_response
     response.headers['Content-Type'] = 'text/event-stream'
@@ -74,12 +106,13 @@ class ListingsController < ApplicationController
     total_seconds = time_grab(listing.start_price)
     interval = 3
      
-      if Time.now.utc.to_i < listing.start_time.to_i && Time.now.utc.to_i < listing.end_time.to_i
+      if listing.status == 'purchased'
+        result_string = "Sold for $#{listing.purchase_price}"
+      elsif Time.now.utc.to_i < listing.start_time.to_i && Time.now.utc.to_i < listing.end_time.to_i     
         result_string = "Auction starts in: #{formatted_time(listing.start_time.to_i - Time.now.utc.to_i)}"
       elsif Time.now.utc.to_i > listing.end_time.to_i
         result_string = "Auction has expired"
-      else 
-        # return decrementing current price
+      else
         time_diff = Time.now.utc - listing.start_time
         no_of_decrements = total_seconds / interval
         dollar_decrements = listing.start_price / no_of_decrements
@@ -93,10 +126,6 @@ class ListingsController < ApplicationController
       sse.close
   end
 
-  def connect
-    @listing = Listing.find(params[:id])
-    @seller = User.find(@listing.seller_id)
-  end
 
   
   private
